@@ -2,30 +2,31 @@ package menu;
 
 //iterators through the smoke house menu
 
-import java.util.Iterator;
+import java.util.ArrayList;
 
-public class SmokeHouseMenuIterator implements Iterator<MenuContent> {
-	MenuContent[] list;
+public class SmokeHouseMenuIterator implements Iterator{
+	ArrayList<MenuContent> items;
 	int position = 0;
  
-	public SmokeHouseMenuIterator(MenuContent[] list) {
-		this.list = list;
+	public SmokeHouseMenuIterator(ArrayList<MenuContent> items) {
+		this.items = items;
 	}
  
 	public MenuContent next() {
-		MenuContent MenuContent = list[position];
+		MenuContent item = items.get(position);
 		position = position + 1;
-		return MenuContent;
+		return item;
 	}
  
 	public boolean hasNext() {
-		if (position >= list.length || list[position] == null) {
+		if (position >= items.size()) {
 			return false;
 		} else {
 			return true;
 		}
 	}
 
+	/*
 	public void remove() {
 		if (position <= 0) {
 			throw new IllegalStateException
@@ -38,4 +39,5 @@ public class SmokeHouseMenuIterator implements Iterator<MenuContent> {
 			list[list.length-1] = null;
 		}
 	}
+	*/
 }

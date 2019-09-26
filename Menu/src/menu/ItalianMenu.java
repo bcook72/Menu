@@ -1,18 +1,16 @@
 package menu;
 
-//implements Italian menu
-
-import java.util.HashMap;
-import java.util.Iterator;
-
 //This sets up the Italian House Menu
 
 public class ItalianMenu implements Menu {
-
-	HashMap<String, MenuContent> menuContents = new HashMap<String, MenuContent>();
+	static final int MAX_ITEMS = 6;
+	int numberOfItems = 0;
+	MenuContent[] menuContents;
+	
   
 	public ItalianMenu() {
- 
+		menuContents = new MenuContent[MAX_ITEMS];
+		
 		addItem("Spaghetti Nights",
 			"Spaghetti with Garlic Bread", true, 7.49);
 		addItem("Italian Sub",
@@ -32,14 +30,21 @@ public class ItalianMenu implements Menu {
 	public void addItem(String name, String description, 
             boolean vegetarian, double price) 
 	{
-	MenuContent menuContent = new MenuContent(name, description, vegetarian, price);
-	menuContents.put(menuContent.getName(), menuContent);
+		MenuContent menuContent = new MenuContent(name, description, vegetarian, price);
+		if (numberOfItems >= MAX_ITEMS) {
+			System.err.println("Sorry, menu is full!  Can't add item to menu");
+		} else {
+			menuContents[numberOfItems] = menuContent;
+			numberOfItems = numberOfItems + 1;
+		}
 	}
  
-
+	public MenuContent[] getMenuItems() {
+		return menuContents;
+	}
   
-	public Iterator<MenuContent> createIterator() {
-		return menuContents.values() .iterator();
+	public Iterator createIterator() {
+		return new ItalianMenuIterator(menuContents);
 		}
  
 }

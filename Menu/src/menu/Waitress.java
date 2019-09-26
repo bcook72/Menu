@@ -2,33 +2,31 @@ package menu;
 
 // creates the waitress class
 
-import java.util.Iterator;
-
 public class Waitress {
-	Menu SmokeHouseMenu;
-	Menu ItalianMenu;
-	Menu cafeMenu;
+	 SmokeHouseMenu smokeHouseMenu;
+	 ItalianMenu italianMenu;
+	 CafeMenu cafeMenu;
  
-	public Waitress(Menu SmokeHouseMenu, Menu ItalianMenu, Menu cafeMenu) {
-		this.SmokeHouseMenu = SmokeHouseMenu;
-		this.ItalianMenu = ItalianMenu;
+	public Waitress(SmokeHouseMenu smokeHouseMenu, ItalianMenu italianMenu, CafeMenu cafeMenu) {
+		this.smokeHouseMenu = smokeHouseMenu;
+		this.italianMenu = italianMenu;
 		this.cafeMenu = cafeMenu;
 	}
  
 	public void printMenu() {
-		Iterator<MenuContent> smokeHouseIterator = SmokeHouseMenu.createIterator();
-		Iterator<MenuContent> italianIterator = ItalianMenu.createIterator();
-		Iterator<MenuContent> cafeIterator = cafeMenu.createIterator();
+		Iterator smokeHouseIterator = smokeHouseMenu.createIterator();
+		Iterator italianMenuIterator = italianMenu.createIterator();
+		Iterator cafeMenuIterator = cafeMenu.createIterator();
 
 		System.out.println("MENU\n----\nBREAKFAST");
 		printMenu(smokeHouseIterator);
 		System.out.println("\nLUNCH");
-		printMenu(italianIterator);
+		printMenu(italianMenuIterator);
 		System.out.println("\nDINNER");
-		printMenu(cafeIterator);
+		printMenu(cafeMenuIterator);
 	}
  
-	private void printMenu(Iterator<MenuContent> iterator) {
+	private void printMenu(Iterator iterator) {
 		while (iterator.hasNext()) {
 			MenuContent MenuContent = iterator.next();
 			System.out.print(MenuContent.getName() + ", ");
@@ -39,29 +37,29 @@ public class Waitress {
  
 	public void printVegetarianMenu() {
 		System.out.println("\nVEGETARIAN MENU\n---------------");
-		printVegetarianMenu(SmokeHouseMenu.createIterator());
-		printVegetarianMenu(ItalianMenu.createIterator());
+		printVegetarianMenu(smokeHouseMenu.createIterator());
+		printVegetarianMenu(italianMenu.createIterator());
 		printVegetarianMenu(cafeMenu.createIterator());
 	}
  
 	public boolean isItemVegetarian(String name) {
-		Iterator<MenuContent> smokeHouseIterator = SmokeHouseMenu.createIterator();
+		Iterator smokeHouseIterator = smokeHouseMenu.createIterator();
 		if (isVegetarian(name, smokeHouseIterator)) {
 			return true;
 		}
-		Iterator<MenuContent> italianIterator = ItalianMenu.createIterator();
-		if (isVegetarian(name, italianIterator)) {
+		Iterator italianMenuIterator = italianMenu.createIterator();
+		if (isVegetarian(name, italianMenuIterator)) {
 			return true;
 		}
-		Iterator<MenuContent> cafeIterator = cafeMenu.createIterator();
-		if (isVegetarian(name, cafeIterator)) {
+		Iterator cafeMenuIterator = cafeMenu.createIterator();
+		if (isVegetarian(name, cafeMenuIterator)) {
 			return true;
 		}
 		return false;
 	}
 
 
-	private void printVegetarianMenu(Iterator<MenuContent> iterator) {
+	private void printVegetarianMenu(Iterator iterator) {
 		while (iterator.hasNext()) {
 			MenuContent MenuContent = iterator.next();
 			if (MenuContent.isVegetarian()) {
@@ -72,7 +70,7 @@ public class Waitress {
 		}
 	}
 
-	private boolean isVegetarian(String name, Iterator<MenuContent> iterator) {
+	private boolean isVegetarian(String name, Iterator iterator) {
 		while (iterator.hasNext()) {
 			MenuContent MenuContent = iterator.next();
 			if (MenuContent.getName().equals(name)) {

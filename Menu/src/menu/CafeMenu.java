@@ -2,14 +2,14 @@ package menu;
 
 // implements menu cafe
 
-import java.util.*;
-import java.util.Iterator;
-
 public class CafeMenu implements Menu {
-	
-	HashMap<String, MenuContent> menuContents = new HashMap<String, MenuContent>();
+	static final int MAX_ITEMS = 3;
+	int numberOfItems = 0;
+	MenuContent[] menuContents;
   
 	public CafeMenu() {
+		menuContents = new MenuContent[MAX_ITEMS];
+		
 		addItem("Club Sandy",
 			"Regular Club with Fries",
 			true, 8.20);
@@ -22,13 +22,18 @@ public class CafeMenu implements Menu {
 	}
  
 	public void addItem(String name, String description, 
-	                     boolean vegetarian, double price) 
+            boolean vegetarian, double price) 
 	{
 		MenuContent menuContent = new MenuContent(name, description, vegetarian, price);
-		menuContents.put(menuContent.getName(), menuContent);
+		if (numberOfItems >= MAX_ITEMS) {
+			System.err.println("Sorry, menu is full!  Can't add item to menu");
+		} else {
+			menuContents[numberOfItems] = menuContent;
+			numberOfItems = numberOfItems + 1;
+		}
 	}
   
-	public Iterator<MenuContent> createIterator() {
-		return menuContents.values() .iterator();
+	public Iterator createIterator() {
+		return new CafeMenuIterator(menuContents);
 		}
 }

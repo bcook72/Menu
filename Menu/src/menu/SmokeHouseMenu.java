@@ -2,15 +2,13 @@ package menu;
 
 // This sets up the Smoke House Menu
 
-import java.util.Iterator;
+import java.util.ArrayList;
 
 public class SmokeHouseMenu implements Menu {
-	static final int MAX_ITEMS = 6;
-	int numberOfItems = 0;
-	MenuContent[] menuContents;
+	ArrayList<MenuContent> menuContents;
 	 
 		public SmokeHouseMenu() {
-			menuContents = new MenuContent[MAX_ITEMS];
+			menuContents = new ArrayList<MenuContent>();
 	    
 			addItem("K&C's Smoke House Special", 
 				"Ribs, Corn, and dinner roll", 
@@ -35,22 +33,22 @@ public class SmokeHouseMenu implements Menu {
 
 		public void addItem(String name, String description, 
                 boolean vegetarian, double price) 
-{
+		{
 		MenuContent menuContent = new MenuContent(name, description, vegetarian, price);
-		if (numberOfItems >= MAX_ITEMS) {
-			System.err.println("Sorry, menu is full!  Can't add item to menu");
-		} else {
-			menuContents[numberOfItems] = menuContent;
-			numberOfItems = numberOfItems + 1;
-		}
+		menuContents.add(menuContent);
 		}
 		
-		public MenuContent[] getMenuItems() {
-		return menuContents;
+		public ArrayList<MenuContent> getMenuItems() {
+			return menuContents;
 		}
 		
-		public Iterator<MenuContent> createIterator() {
-		return new SmokeHouseMenuIterator(menuContents);
+		public Iterator createIterator() {
+			return new SmokeHouseMenuIterator(menuContents);
+		}
+		
+
+		public String toString() {
+			return "Smoke House Menu";
 		}
 
 	}
